@@ -58,5 +58,5 @@ Attributes X1 to X6 indicate the responses for each question and have values fro
 
 3. **Leverage the high recall of XGBoost in predicting happy customer to build customer retention strategies**
 - The XGBoost model has a recall of 85.5% in predicting happy customers (target class '1'), implying that it reliably detects who is satisfied based on questions X1, X3, X6 and X5.
-- This insight can be used to find loyal customers segments and devise strategies to incentivize happy customers ans retain them using loyatly programs, referral benefits, cashback etc. all with a lower risk of misclassification.
+- This insight can be used to find loyal customers segments and devise strategies to incentivize happy customers and retain them using loyatly programs, referral benefits, cashback etc. all with a lower risk of misclassification.
 

@@ -38,25 +38,36 @@ Attributes X1 to X6 indicate the responses for each question and have values fro
 
 ### INSIGHTS FROM PERFORMANCE METRICS AND MODEL DEPLOYMENT
 - The XGBoost model, tuned to the hyperparameters {'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 100, 'subsample': 1.0} is the best performing model with a 79.6% accuracy on the training set and 84.6% accuracy on the test set - well above the benchmark of expected 73% accuracy.
+- For the feature X6, the XGBoost model almost fully correctly predicts the happy customers, with very small error margins. Same for X1.
+- But for the features X3 and X5, the error margins are a bit higher. For X3, the error margin follows a similar trend, but for X5 its arbitrary. 
 - The overall accuracy of the tuned XGBoost model when re-applied on the full dataset for validation turned out to be at 80.2%, indicating a strong generalization on the full dataset.
 - The model exhibits a balanced performance across both target classes 0 and 1, with precision and recall both above 79% on the deployment set.
 - Target Class '1' i.e. happy customers is predicted more reliably with a recall of 85.5% - useful for devising retention and loyalty strategies.
 - Target Class '0' i.e. unhappy customers has a slightly lower recall of 73.7% - meaning some unhappy customers may go undetected.
 - The model has a high F-1 measure of 77.1% and 82.5% for target class 0 and 1 respectively, indicating a solid balance between precision and recall.
 
+Based on the granular drilldown during multivariate analysis, mutual information and the features importances, the underlying intuition for feature selection is also validated.
+
+- X1 and X6 indeed have the strongest predicting power - their inclusion is highly critical. 
+- X3 and X5 are recommended to be included, but with due diligence.
+- X2 and X4 neither contribute much information nor do they have high feature importance - they can be discared. 
+
   ### BUSINESS RECOMMENDATIONS
   
 1. **Refine the survey by removing low-impact questions**
-    - Based on the insights of the feature engineering and EDA, the questions X2: *" contents of my order was as I expected"* and X4: *"I paid a good price for my order"* have lower predictability. Hence, these can be safely removed to further streamline the survey.
+    Based on the insights of the feature engineering and EDA, the questions:
+   - X2: *" contents of my order was as I expected"* - **To be discarded**
+   - X4: *"I paid a good price for my order"* - **To be discarded**
+   Both have lower predictive capabilities to target of customer happiness. Hence, these can be safely removed to further streamline the survey.
 
-2. **Retain and prioritize the high-impact survey questions**
+3. **Retain and prioritize the high-impact survey questions**
     Following are the strongest predictive indicators of customer satisfaction:
-    - X1 : *"my order was delivered on time"* - **Must Include**
-    - X3: *"I ordered everything I wanted to order"* **Must Include**
-    - X6 : *"the app makes ordering easy for me"* **Recommended to be included**
+    - X1 : *"my order was delivered on time"* - **Must be included**
+    - X6 : *"the app makes ordering easy for me"* **Must be included**
+    - X3: *"I ordered everything I wanted to order"* **Recommended to be included**
     - X5: *"I am satisfied with my courier"* **Recommended to be included**
 
-3. **Leverage the high recall of XGBoost in predicting happy customer to build customer retention strategies**
+4. **Leverage the high recall of XGBoost in predicting happy customer to build customer retention strategies**
 - The XGBoost model has a recall of 85.5% in predicting happy customers (target class '1'), implying that it reliably detects who is satisfied based on questions X1, X3, X6 and X5.
 - This insight can be used to find loyal customers segments and devise strategies to incentivize happy customers and retain them using loyatly programs, referral benefits, cashback etc. all with a lower risk of misclassification.
 
